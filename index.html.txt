@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Praveen Kumar R | Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #0f172a;
+            --secondary: #1e293b;
+            --accent: #2dd4bf;
+            --text-light: #f8fafc;
+            --text-dim: #94a3b8;
+            --card-bg: rgba(30, 41, 59, 0.7);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--primary);
+            color: var(--text-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* --- Animations --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* --- Navigation --- */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(45, 212, 191, 0.1);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            text-align: center;
+            padding: 0 1rem;
+            background: radial-gradient(circle at 50% 50%, rgba(45, 212, 191, 0.1) 0%, transparent 50%);
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            line-height: 1.1;
+        }
+
+        .hero span {
+            color: var(--accent);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-dim);
+            max-width: 600px;
+            margin-bottom: 2rem;
+        }
+
+        .btn {
+            padding: 0.8rem 2rem;
+            background: transparent;
+            border: 2px solid var(--accent);
+            color: var(--accent);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            border-radius: 5px;
+            display: inline-block;
+        }
+
+        .btn:hover {
+            background: var(--accent);
+            color: var(--primary);
+            box-shadow: 0 0 20px rgba(45, 212, 191, 0.4);
+        }
+
+        /* --- Sections General --- */
+        section {
+            padding: 5rem 10%;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background: var(--accent);
+            margin: 0.5rem auto 0;
+            border-radius: 2px;
+        }
+
+        /* --- About & Skills --- */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+
+        .info-card {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            height: 100%;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .skill-tag {
+            background: rgba(45, 212, 191, 0.1);
+            color: var(--accent);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            border: 1px solid rgba(45, 212, 191, 0.2);
+        }
+
+        /* --- Timeline (Education & Experience) --- */
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .timeline-item {
+            margin-bottom: 2rem;
+            padding-left: 2rem;
+            border-left: 2px solid var(--accent);
+            position: relative;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -9px;
+            top: 5px;
+            width: 16px;
+            height: 16px;
+            background: var(--primary);
+            border: 2px solid var(--accent);
+            border-radius: 50%;
+        }
+
+        .timeline-date {
+            color: var(--accent);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* --- Projects --- */
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 12px;
+            transition: transform 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent);
+        }
+
+        /* --- Achievements Section --- */
+        .achievement-list {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .achievement-item {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 10px;
+            border-left: 4px solid var(--accent);
+            display: flex;
+            align-items: start;
+            gap: 1rem;
+            transition: transform 0.3s;
+        }
+
+        .achievement-item:hover {
+            transform: translateX(10px);
+            background: rgba(45, 212, 191, 0.05);
+        }
+
+        .achievement-icon {
+            color: var(--accent);
+            font-size: 1.5rem;
+            margin-top: 0.2rem;
+        }
+
+        /* --- Books Library Section --- */
+        .library-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .book-card {
+            background: linear-gradient(145deg, #1e293b, #162030);
+            padding: 2rem;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+        
+        .book-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+        }
+
+        .book-icon {
+            font-size: 3rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        .book-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .book-card p {
+            color: var(--text-dim);
+            font-size: 0.9rem;
+        }
+
+        /* --- Contact --- */
+        .contact-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .contact-info-box {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            text-align: left;
+            width: 100%;
+            max-width: 600px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        .contact-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .contact-item i {
+            color: var(--accent);
+            font-size: 1.5rem;
+            margin-right: 1.5rem;
+            width: 30px;
+            text-align: center;
+        }
+
+        .contact-item a {
+            color: var(--text-light);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .contact-item a:hover {
+            color: var(--accent);
+        }
+
+        .contact-form {
+            width: 100%;
+            max-width: 600px;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .contact-form input, .contact-form textarea {
+            padding: 1rem;
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-light);
+            border-radius: 5px;
+            font-family: inherit;
+        }
+
+        .contact-form input:focus, .contact-form textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        /* --- Mobile Responsive --- */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .contact-item {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="#" class="logo">PK.</a>
+        <ul class="nav-links">
+            <li><a href="#about">About</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#achievements">Achievements</a></li>
+            <li><a href="#library">Library</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <header class="hero">
+        <h1 class="reveal">Hi, I'm <span>Praveen Kumar R</span></h1>
+        <p class="reveal">CSBS Student | Software Developer | Innovator</p>
+        <div class="reveal">
+            <p style="font-size: 0.9rem; margin-bottom: 2rem;">
+                Leveraging skills and passion to create meaningful value in dynamic environments.
+            </p>
+            <a href="#projects" class="btn">View My Work</a>
+        </div>
+    </header>
+
+    <section id="about">
+        <h2 class="section-title">About Me</h2>
+        <div class="about-grid">
+            <div class="info-card reveal">
+                <h3>Education</h3>
+                <br>
+                <div class="timeline-item">
+                    <div class="timeline-date">2023 - 2027</div>
+                    <h4>B.Tech - Computer Science and Business Systems</h4>
+                    <p>RMD Engineering College</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">2023</div>
+                    <h4>Senior Secondary</h4>
+                    <p>Velammal Matriculation Higher Secondary School</p>
+                </div>
+            </div>
+
+            <div class="info-card reveal">
+                <h3>Technical Skills</h3>
+                <br>
+                <div class="skill-tags">
+                    <span class="skill-tag">C++</span>
+                    <span class="skill-tag">SQL</span>
+                    <span class="skill-tag">Web Development</span>
+                    <span class="skill-tag">React Js</span>
+                    <span class="skill-tag">Problem Solving</span>
+                    <span class="skill-tag">Communication</span>
+                </div>
+                </div>
+        </div>
+    </section>
+
+    <section id="experience">
+        <h2 class="section-title">Experience</h2>
+        <div class="timeline reveal">
+            <div class="timeline-item">
+                <div class="timeline-date">May 2025 - Jun 2025</div>
+                <h4>Content Writing Intern</h4>
+                <p>Inamigos Foundation</p>
+                <p style="font-size: 0.9rem; color: var(--text-dim); margin-top: 0.5rem;">
+                    Created unique social media content and actively participated in organizational activities.
+                </p>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-date">May 2024 - Jun 2024</div>
+                <h4>Software Development Intern</h4>
+                <p>Prodigy InfoTech Pvt. Ltd</p>
+                <p style="font-size: 0.9rem; color: var(--text-dim); margin-top: 0.5rem;">
+                    Developed software solutions using C++ for various organizational tasks.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects">
+        <h2 class="section-title">Projects</h2>
+        <div class="project-grid">
+            <div class="project-card reveal">
+                <div>
+                    <h3>CSBS Department Website</h3>
+                    <p style="color: var(--accent); font-size: 0.9rem;">React Js</p>
+                    <p style="margin-top: 1rem; color: var(--text-dim);">
+                        A comprehensive web platform to bridge the gap between alumni and juniors. Includes dynamic batch information and role tracking.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="project-card reveal">
+                <div>
+                    <h3>EV Charging via Street Lights</h3>
+                    <p style="color: var(--accent); font-size: 0.9rem;">Product Development | C++</p>
+                    <p style="margin-top: 1rem; color: var(--text-dim);">
+                        An innovative approach integrating charging stations with streetlights to provide decentralized charging points and enhance urban accessibility.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="achievements">
+        <h2 class="section-title">Achievements</h2>
+        <div class="achievement-list">
+            
+            <div class="achievement-item reveal">
+                <i class="fas fa-scroll achievement-icon"></i>
+                <div>
+                    <h3>Research Paper Presentation</h3>
+                    <p style="color: var(--text-dim); font-size: 0.9rem; margin-top: 0.5rem;">
+                        Presented a paper titled <strong>"Topological Codes and Digital Control Integration: A Path to Scalable Fault-Tolerant Quantum Computation"</strong> in an international conference.
+                    </p>
+                </div>
+            </div>
+
+            <div class="achievement-item reveal">
+                <i class="fas fa-trophy achievement-icon"></i>
+                <div>
+                    <h3>Winner - IIFT Business Plan Competition 2024</h3>
+                    <p style="color: var(--text-dim); font-size: 0.9rem; margin-top: 0.5rem;">
+                        Demonstrated strategic planning and business acumen to secure the top position.
+                    </p>
+                </div>
+            </div>
+
+            <div class="achievement-item reveal">
+                <i class="fas fa-medal achievement-icon"></i>
+                <div>
+                    <h3>Second Runner - NIT Trichy E Summit-25</h3>
+                    <p style="color: var(--text-dim); font-size: 0.9rem; margin-top: 0.5rem;">
+                        Recognized for entrepreneurial innovation and problem-solving skills.
+                    </p>
+                </div>
+            </div>
+
+            <div class="achievement-item reveal">
+                <i class="fas fa-file-alt achievement-icon"></i>
+                <div>
+                    <h3>Paper Presentation: Nano Technology</h3>
+                    <p style="color: var(--text-dim); font-size: 0.9rem; margin-top: 0.5rem;">
+                        Presented on "Nano Technology Applications" (2023), highlighting future tech trends.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="library">
+        <h2 class="section-title">My Library</h2>
+        <p style="text-align: center; margin-bottom: 2rem; color: var(--text-dim);">
+            Books that have shaped my perspective on business, strategy, and finance.
+        </p>
+        <div class="library-grid">
+            <div class="book-card reveal">
+                <i class="fas fa-book-open book-icon"></i>
+                <h3>Failing to Succeed</h3>
+                <p>by K. Vaitheeswaran</p>
+                <div style="margin-top: 1rem; font-size: 0.8rem; color: #64748b;">
+                    "The story of India's first e-commerce company."
+                </div>
+            </div>
+
+            <div class="book-card reveal">
+                <i class="fas fa-chess-knight book-icon"></i>
+                <h3>Direct from Dell</h3>
+                <p>by Michael Dell</p>
+                <div style="margin-top: 1rem; font-size: 0.8rem; color: #64748b;">
+                    "Strategies that revolutionized an industry."
+                </div>
+            </div>
+
+            <div class="book-card reveal">
+                <i class="fas fa-coins book-icon"></i>
+                <h3>The Psychology of Money</h3>
+                <p>by Morgan Housel</p>
+                <div style="margin-top: 1rem; font-size: 0.8rem; color: #64748b;">
+                    "Timeless lessons on wealth, greed, and happiness."
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <h2 class="section-title">Get In Touch</h2>
+        <div class="contact-container reveal">
+            
+            <div class="contact-info-box">
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <a href="mailto:praveen2021cnh@gmail.com">praveen2021cnh@gmail.com</a>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-phone"></i>
+                    <a href="tel:+919159386939">+91 91593 86939</a>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Mugappair East, Chennai</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fab fa-linkedin"></i>
+                    <a href="https://linkedin.com/in/praveen-kumar-r-a4083730a" target="_blank">LinkedIn Profile</a>
+                </div>
+            </div>
+
+            <form name="contact" method="POST" data-netlify="true" class="contact-form">
+                <input type="hidden" name="form-name" value="contact">
+                <input type="text" name="name" placeholder="Your Name" required>
+                <input type="email" name="email" placeholder="Your Email" required>
+                <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
+                <button type="submit" class="btn" style="background: var(--accent); color: var(--primary); width: 100%;">Send Message</button>
+            </form>
+
+        </div>
+    </section>
+
+    <footer style="text-align: center; padding: 2rem; background: rgba(15, 23, 42, 0.95); color: var(--text-dim); font-size: 0.9rem;">
+        <p>&copy; 2026 Praveen Kumar R. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Reveal elements on scroll
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 150;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+        window.addEventListener("scroll", reveal);
+        reveal();
+    </script>
+</body>
+</html>
